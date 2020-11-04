@@ -1,4 +1,8 @@
 # gallery-app
+Gallery application which fetch images from unsplash.
+
+##Technologies
+Vue 3, Typescript ;)
 
 ## Project setup
 ```
