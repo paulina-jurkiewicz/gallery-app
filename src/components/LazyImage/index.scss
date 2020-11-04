@@ -1,0 +1,43 @@
+.image {
+    &__wrapper {
+        align-items: center;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        min-height: 64px;
+        min-width: 64px;
+        margin : 0;
+
+        &.loaded {
+            .image {
+                &__item {
+                    border: 0;
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                &__spinner {
+                    display: none;
+                    width: 100%;
+                }
+            }
+        }
+
+        &.no-loaded {
+            .image {
+                &__spinner {
+                    display: none;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &__item {
+        border-radius: 4px;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        visibility: hidden;
+        width: 100%;
+    }
+}
