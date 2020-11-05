@@ -1,17 +1,17 @@
-import { Options, Vue } from "vue-class-component";
-import { GalleryService } from "@/store/Gallery";
-import GGalleryImage from "@/components/GalleryImage/index.vue";
-import GGallery from "@/components/Gallery/index.vue";
+import { Options, Vue }             from "vue-class-component";
+import { GalleryService }           from "@/store/Gallery";
+import GGallery                     from "@/components/Gallery/index.vue";
+import { LocalStorage }             from "@/tools/LocalStorage";
+import GFilters                     from "@/components/Filters/index.vue";
 
 @Options( {
     components: {
-        GGallery
+        GGallery, GFilters
     }
 } )
 export default class Homepage extends Vue {
-    get totalItems() {
-        return GalleryService.total;
-    }
+    localStorage: any;
+    filterFavouriteChecked = false;
 
     get galleryLoading() {
         return GalleryService.loading;
@@ -21,28 +21,56 @@ export default class Homepage extends Vue {
         return GalleryService.currentPage;
     }
 
-    get galleryItems() {
-        console.log(GalleryService.images, 'GalleryService.images')
+    get galleryImages() {
         return GalleryService.images;
     }
 
-    async mounted() {
-        const params = { page: 1, perPage: 20, orderBy: 'latest' };
-
-        await GalleryService.fetch(params);
+    get galleryFavourite() {
+        return GalleryService.favouritesImages;
     }
 
-    onScrollGallery(){
-        console.log('scroll')
-
-        this.fetchGalleryItemsOnScroll();
+    get galleryItems() {
+        return this.favouriteChecked ? this.galleryFavourite : this.galleryImages;
     }
 
-    async fetchGalleryItemsOnScroll() {
-        if (!this.galleryLoading) {
-            const params = { page: this.currentPage + 1, perPage: 20, orderBy: 'latest' };
+    get favouriteChecked() {
+        return this.filterFavouriteChecked;
+    }
 
-            await GalleryService.fetch( params );
+    async created() {
+        this.localStorage = new LocalStorage();
+
+        this.fetchGalleryItems( 1, true );
+        this.fetchFavouriteImagesList();
+    }
+
+    async fetchFavouriteImagesList() {
+        const favouriteImages = ( this.localStorage.getItemByName( 'favourite-images' ) || [] ).map( ( image ) => image.id );
+
+        await GalleryService.getFavourite( favouriteImages );
+    }
+
+    async fetchGalleryItems( page, clearList ) {
+        const params = { page: page, perPage: 20, orderBy: 'latest' };
+
+        if ( clearList ) {
+            await GalleryService.clearImagesCollection();
         }
+
+        await GalleryService.fetch( params );
+    }
+
+    onScrollGalleryImages() {
+        if ( !this.favouriteChecked && !this.galleryLoading ) {
+            this.fetchGalleryItems( this.currentPage + 1, false );
+        }
+    }
+
+    onFilterFavouriteChange( filterFavouriteChecked ) {
+        this.filterFavouriteChecked = filterFavouriteChecked;
+    }
+
+    onChangeFavouriteImagesList() {
+        this.fetchFavouriteImagesList();
     }
 }

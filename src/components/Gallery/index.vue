@@ -1,6 +1,8 @@
 <template>
     <section class="gallery" ref="gallery">
-        <GGalleryImage v-for="(image,index) in items" :key="index" :image="image" />
+        <GGalleryImage v-for="(image,index) in items" :key="index" :image="image"
+                       :isChecked="isChecked(image.id)"
+                       @change-favourite-images-list="onChangeFavouriteImagesList"/>
     </section>
 </template>
 

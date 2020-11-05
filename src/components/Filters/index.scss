@@ -1,0 +1,44 @@
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    &__title {
+        padding-right: 5px;
+    }
+
+    &__item {
+        position: relative;
+        display: inline-block;
+
+        label {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            width: auto;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease-in;
+            background-color: #fff;
+        }
+
+        input {
+            position: absolute;
+            display: none;
+
+            &:checked + label {
+                background-color: #f7eded;
+            }
+        }
+
+        span {
+            padding-right: 5px;
+            font-size: 14px;
+        }
+
+        img {
+            width: 15px;
+        }
+    }
+}

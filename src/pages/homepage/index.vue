@@ -1,6 +1,8 @@
 <template>
     <section class="gallery__content">
-        <GGallery :items="galleryItems" @on-scroll-gallery="onScrollGallery"/>
+       <GFilters @filter-favourite-change="onFilterFavouriteChange"/>
+
+        <GGallery :items="galleryItems" @scroll-gallery-images="onScrollGalleryImages" @change-favourite-images-list="onChangeFavouriteImagesList"/>
     </section>
 </template>
 
