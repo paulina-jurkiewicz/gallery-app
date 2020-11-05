@@ -1,9 +1,13 @@
+@import "../../assets/css/placeholders";
+@import "../../assets/css/variables";
+
 .image {
     &__wrapper {
-        align-items: center;
+        @extend %align-items-center;
+        @extend %display-flex;
+        @extend %justify-content-center;
+
         border-radius: 4px;
-        display: flex;
-        justify-content: center;
         min-height: 64px;
         min-width: 64px;
         margin : 0;
@@ -26,8 +30,8 @@
         &.no-loaded {
             .image {
                 &__spinner {
-                    display: none;
-                    width: 100%;
+                    @extend %display-none;
+                    @extend %width-full;
                 }
             }
         }

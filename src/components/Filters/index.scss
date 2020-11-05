@@ -1,40 +1,44 @@
+@import "../../assets/css/placeholders";
+@import "../../assets/css/variables";
+
 .filters {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    @extend %display-flex;
+    @extend %align-items-center;
+    @extend %justify-content-flex-start;
 
     &__title {
         padding-right: 5px;
     }
 
     &__item {
-        position: relative;
-        display: inline-block;
+        @extend %display-inline-block;
+        @extend %position-relative;
 
         label {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
+            @extend %display-flex;
+            @extend %align-items-center;
+            @extend %cursor-pointer;
+
+            border: $border;
             width: auto;
             padding: 5px;
             border-radius: 4px;
-            cursor: pointer;
             transition: all 0.2s ease-in;
-            background-color: #fff;
+            background-color: $color-white;
         }
 
         input {
-            position: absolute;
-            display: none;
+            @extend %position-absolute;
+            @extend %display-none;
 
             &:checked + label {
-                background-color: #f7eded;
+                background-color: $color-light;
             }
         }
 
         span {
             padding-right: 5px;
-            font-size: 14px;
+            font-size: $font-size-sm;
         }
 
         img {

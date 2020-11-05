@@ -1,8 +1,14 @@
+
+@import "../../assets/css/variables";
+@import "../../assets/css/placeholders";
+
 .gallery__item {
-    position: relative;
-    display: inline-block;
+    @extend %position-relative;
+    @extend %display-inline-block;
+    @extend %cursor-pointer;
+
     overflow: hidden;
-    background: #fff;
+    background-color: $color-white;
     margin-top: 15px;
     width: 100%;
     box-sizing: border-box;
@@ -11,11 +17,11 @@
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    cursor: pointer;
 
     .form__checkbox {
+        @extend %position-relative;
+
         z-index: 99;
-        position: relative;
     }
 
     &:after {
@@ -32,21 +38,23 @@
 
     &:hover {
         &:after {
-            position: absolute;
+            @extend %position-absolute;
+
             opacity: 0.6;
         }
     }
 
     .item {
         &__favourite {
-            position: absolute;
+            @extend %position-absolute;
+
             top: 15px;
             right: 15px;
             z-index: 99;
-            background-color: #fff;
+            background-color: $color-white;
             border-radius: 4px;
             padding: 4px 12px;
-            border: 1px solid darkgray;
+            border: $border;
             opacity: 0;
             transition: all 0.2s ease-in;
 
@@ -55,13 +63,13 @@
             }
 
             label {
-                display: flex;
-                cursor: pointer;
+                @extend %display-flex;
+                @extend %cursor-pointer;
             }
 
             input {
-                position: absolute;
-                display: none;
+                @extend %position-absolute;
+                @extend %display-none;
             }
 
             img {
